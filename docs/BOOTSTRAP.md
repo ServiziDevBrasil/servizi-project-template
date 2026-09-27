@@ -58,3 +58,14 @@ O script só aceita repositórios cujo owner seja `ServiziDevBrasil`, salvo alte
 8. O `quality-gate` decide a entrada na `main`.
 
 O bootstrap não troca silenciosamente um perfil já aplicado. Mudança de stack é tratada como migração explícita.
+
+
+## Repositórios privados e plano do GitHub
+
+No GitHub Free, rulesets, branch protections e environments com proteção não ficam disponíveis para repositórios privados. O bootstrap agora executa um preflight antes de qualquer alteração administrativa.
+
+Se o alvo for privado e o plano não suportar essas proteções, o bootstrap para antes de aplicar mudanças e orienta duas opções:
+- manter o repositório público para usar o padrão completo sem custo;
+- usar GitHub Pro/Team para manter o repositório privado com enforcement completo.
+
+Isso evita execução parcial e deixa o comportamento previsível.
