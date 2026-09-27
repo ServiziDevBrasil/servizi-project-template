@@ -166,6 +166,28 @@ async function api(apiPath, options = {}) {
   return result.data;
 }
 
+async function preflightRepositoryCapabilities(targetRepository) {
+  if (!targetRepository.private) {
+    console.log('✓ Preflight: repositório público suporta rulesets no plano atual.');
+    return;
+  }
+
+  const rulesetCheck = await request(
+    `/repos/${owner}/${repo}/rulesets?includes_parents=false&per_page=1`,
+    { allowStatuses: [403] }
+  );
+
+  if (rulesetCheck.status === 403) {
+    throw new Error(
+      'Preflight bloqueado: este repositório é privado e o plano atual do GitHub não oferece rulesets/environments privados. ' +
+      'Opções: tornar o repositório público para usar o padrão sem custo, ou usar GitHub Pro/Team para manter o repositório privado com proteção obrigatória. ' +
+      'Nenhuma configuração administrativa foi aplicada nesta execução.'
+    );
+  }
+
+  console.log('✓ Preflight: rulesets privados disponíveis para este repositório.');
+}
+
 async function ensureRuleset() {
   const rulesets = await api(
     `/repos/${owner}/${repo}/rulesets?includes_parents=false&per_page=100`
@@ -455,6 +477,7 @@ async function main() {
   }
 
   const targetRepository = await api(`/repos/${owner}/${repo}`);
+  await preflightRepositoryCapabilities(targetRepository);
 
   await api(`/repos/${owner}/${repo}`, {
     method: 'PATCH',
