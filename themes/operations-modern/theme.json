@@ -1,0 +1,8 @@
+{
+  "id": "operations-modern",
+  "name": "Servizi Operations Modern",
+  "description": "Dashboard operacional moderno inspirado na linguagem visual do Kiranism, com identidade própria Servizi.",
+  "compatibleProfiles": ["web-fullstack"],
+  "reference": "Kiranism/next-shadcn-dashboard-starter",
+  "licenseReference": "MIT"
+}
