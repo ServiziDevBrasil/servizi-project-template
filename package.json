@@ -17,7 +17,7 @@
     "project:check": "node scripts/check-project-config.mjs"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.50.0",
     "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^3.0.0",
