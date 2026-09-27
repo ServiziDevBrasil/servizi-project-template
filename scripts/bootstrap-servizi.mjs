@@ -408,7 +408,7 @@ async function initializeProfile(targetRepository) {
     sha: markerBlob.sha
   });
 
-  for (const oldPath of ['src/health.ts', 'src/index.ts', 'tests/unit/health.test.ts']) {
+  for (const oldPath of ['src/health.ts', 'src/index.ts']) {
     treeEntries.push({
       path: oldPath,
       mode: '100644',
