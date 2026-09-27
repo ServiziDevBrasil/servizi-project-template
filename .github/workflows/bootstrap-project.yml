@@ -7,6 +7,15 @@ on:
         description: "Repositório alvo no formato ServiziDevBrasil/nome"
         required: true
         type: string
+      profile:
+        description: "Perfil inicial do projeto"
+        required: true
+        default: web-fullstack
+        type: choice
+        options:
+          - web-fullstack
+          - web-frontend
+          - none
       mode:
         description: "Primeiro use dry-run; depois apply"
         required: true
@@ -23,7 +32,7 @@ jobs:
   bootstrap:
     if: github.repository == 'ServiziDevBrasil/servizi-project-template'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout template
@@ -37,13 +46,14 @@ jobs:
       - name: Bootstrap target repository
         env:
           TARGET_REPOSITORY: ${{ inputs.repository }}
+          PROJECT_PROFILE: ${{ inputs.profile }}
           BOOTSTRAP_MODE: ${{ inputs.mode }}
           SERVIZI_BOOTSTRAP_TOKEN: ${{ secrets.SERVIZI_BOOTSTRAP_TOKEN }}
           SERVIZI_ALLOWED_OWNER: ServiziDevBrasil
         shell: bash
         run: |
           if [ "$BOOTSTRAP_MODE" = "apply" ]; then
-            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --apply
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --apply
           else
-            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --dry-run
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --dry-run
           fi

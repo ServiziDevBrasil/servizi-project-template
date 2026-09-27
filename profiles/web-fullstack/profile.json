@@ -1,0 +1,6 @@
+{
+  "id": "web-fullstack",
+  "name": "Servizi Web Fullstack",
+  "description": "Next.js + TypeScript + Supabase para aplicações com frontend, backend e persistência.",
+  "stack": ["Next.js", "React", "TypeScript", "Supabase", "Vitest", "Playwright"]
+}

@@ -8,8 +8,10 @@ export default tseslint.config(
       globals: {
         Buffer: 'readonly',
         console: 'readonly',
+        document: 'readonly',
+        fetch: 'readonly',
         process: 'readonly',
-        fetch: 'readonly'
+        window: 'readonly'
       }
     }
   },

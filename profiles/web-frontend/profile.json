@@ -1,0 +1,6 @@
+{
+  "id": "web-frontend",
+  "name": "Servizi Web Frontend",
+  "description": "React + Vite + TypeScript para dashboards, PWAs e aplicações orientadas a APIs.",
+  "stack": ["React", "Vite", "TypeScript", "Vitest", "Playwright"]
+}

@@ -26,9 +26,10 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Project config
         run: npm run project:check
-
+      - name: Profile manifests
+        run: node scripts/check-profiles.mjs
       - name: Bootstrap dry-run
-        run: node scripts/bootstrap-servizi.mjs --repo ServiziDevBrasil/bootstrap-validation --dry-run
+        run: node scripts/bootstrap-servizi.mjs --repo ServiziDevBrasil/bootstrap-validation --profile web-fullstack --dry-run
       - name: Typecheck
         run: npm run typecheck
       - name: Lint
