@@ -13,6 +13,23 @@ React + Vite + TypeScript. Base para dashboards, PWAs, mapas e aplicações orie
 ### none
 Aplica apenas governança do GitHub, sem trocar a stack de aplicação.
 
+## Temas visuais
+
+### base
+Visual mínimo padrão.
+
+### operations-modern
+Dashboard operacional moderno inspirado em padrões do Kiranism e reimplementado para a arquitetura Servizi. Nesta primeira versão é compatível com `web-fullstack`.
+
+O tema adiciona:
+- sidebar responsiva;
+- header com busca e ações;
+- cards de KPI;
+- gráfico operacional;
+- atividade recente;
+- modo claro/escuro;
+- paleta clara com acento terracota/nude, evitando o padrão azul-escuro.
+
 ## O que o bootstrap configura
 
 - auto-merge;
@@ -52,10 +69,11 @@ O script só aceita repositórios cujo owner seja `ServiziDevBrasil`, salvo alte
 2. No template mestre, abra **Actions -> Bootstrap Servizi Project**.
 3. Informe o repositório alvo.
 4. Escolha `web-fullstack`, `web-frontend` ou `none`.
-5. Rode `dry-run`.
-6. Rode `apply`.
-7. O bootstrap cria o PR de inicialização e solicita auto-merge.
-8. O `quality-gate` decide a entrada na `main`.
+5. Escolha `base` ou `operations-modern`.
+6. Rode `dry-run`.
+7. Rode `apply`.
+8. O bootstrap cria o PR de inicialização e solicita auto-merge.
+9. O `quality-gate` decide a entrada na `main`.
 
 O bootstrap não troca silenciosamente um perfil já aplicado. Mudança de stack é tratada como migração explícita.
 
