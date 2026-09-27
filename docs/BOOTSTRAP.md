@@ -1,8 +1,19 @@
 # Bootstrap Servizi
 
-O Bootstrap Servizi aplica automaticamente o padrão de engenharia do template a um novo repositório.
+O Bootstrap Servizi aplica automaticamente o padrão de engenharia e, opcionalmente, uma stack inicial ao novo repositório.
 
-## O que ele configura
+## Perfis
+
+### web-fullstack
+Next.js + React + TypeScript + Supabase. Base para portais, sistemas internos, SaaS, autenticação, APIs e persistência.
+
+### web-frontend
+React + Vite + TypeScript. Base para dashboards, PWAs, mapas e aplicações orientadas a APIs externas.
+
+### none
+Aplica apenas governança do GitHub, sem trocar a stack de aplicação.
+
+## O que o bootstrap configura
 
 - auto-merge;
 - atualização de branches de Pull Request;
@@ -14,60 +25,36 @@ O Bootstrap Servizi aplica automaticamente o padrão de engenharia do template a
 - `quality-gate` obrigatório;
 - branch atualizada antes do merge;
 - bloqueio de exclusão e force-push da `main`;
-- environment `staging` livre para homologação;
+- environment `staging` livre;
 - environment `production`;
-- somente a branch `main` pode fazer deploy em `production`.
-
-O fluxo permanece agent-friendly:
-
-`LLM -> branch -> push -> PR -> quality-gate -> auto-merge -> main`
+- somente `main` pode publicar em `production`;
+- PR automático de inicialização do perfil escolhido.
 
 ## Segurança
 
-O script só aceita repositórios cujo owner seja `ServiziDevBrasil`, salvo se `SERVIZI_ALLOWED_OWNER` for explicitamente alterado.
+O token fica somente em GitHub Actions Secrets.
 
-O token nunca deve ser commitado. Use secret do GitHub Actions ou variável de ambiente local.
+Para aplicar apenas governança:
+- **Administration: Read and write**
 
-## Teste sem alterar nada
+Para também criar o PR de inicialização do perfil:
+- **Administration: Read and write**
+- **Contents: Read and write**
+- **Pull requests: Read and write**
 
-```bash
-node scripts/bootstrap-servizi.mjs --repo ServiziDevBrasil/meu-projeto --dry-run
-```
+Metadata read-only é concedido automaticamente pelo GitHub.
 
-## Aplicação local
+O script só aceita repositórios cujo owner seja `ServiziDevBrasil`, salvo alteração explícita de `SERVIZI_ALLOWED_OWNER`.
 
-Defina um token administrativo em `SERVIZI_BOOTSTRAP_TOKEN` e execute:
+## Uso
 
-```bash
-node scripts/bootstrap-servizi.mjs --repo ServiziDevBrasil/meu-projeto --apply
-```
+1. Crie o novo repositório usando **Use this template**.
+2. No template mestre, abra **Actions -> Bootstrap Servizi Project**.
+3. Informe o repositório alvo.
+4. Escolha `web-fullstack`, `web-frontend` ou `none`.
+5. Rode `dry-run`.
+6. Rode `apply`.
+7. O bootstrap cria o PR de inicialização e solicita auto-merge.
+8. O `quality-gate` decide a entrada na `main`.
 
-## Automação central
-
-O workflow **Bootstrap Servizi Project** deste repositório permite aplicar o padrão pelo GitHub Actions.
-
-Ele exige um secret chamado:
-
-`SERVIZI_BOOTSTRAP_TOKEN`
-
-Recomendação para token fine-grained:
-
-- Resource owner: `ServiziDevBrasil`
-- Repository access: os repositórios que serão gerenciados; para automação de projetos futuros, usar todos os repositórios da conta.
-- Repository permissions:
-  - **Administration: Read and write**
-  - **Actions: Read**
-
-Use expiração limitada e faça rotação periódica. Para uma estrutura maior, substitua o PAT por um GitHub App dedicado.
-
-## Uso futuro
-
-1. Criar projeto em **Use this template**.
-2. Abrir o repositório `servizi-project-template`.
-3. Ir em **Actions -> Bootstrap Servizi Project -> Run workflow**.
-4. Informar `ServiziDevBrasil/nome-do-projeto`.
-5. Primeiro rodar em `dry-run`.
-6. Depois rodar em `apply`.
-7. Confirmar o primeiro PR com `quality-gate` verde.
-
-O bootstrap é idempotente: pode ser executado novamente para restaurar o padrão gerenciado.
+O bootstrap não troca silenciosamente um perfil já aplicado. Mudança de stack é tratada como migração explícita.
