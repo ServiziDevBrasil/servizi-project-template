@@ -47,7 +47,7 @@ if (theme === 'operations-modern' && profile !== 'web-fullstack') {
 }
 
 const [owner, repo] = repoFullName.split('/');
-if (owner !== DEFAULT_OWNER) {
+if (owner.toLowerCase() !== DEFAULT_OWNER.toLowerCase()) {
   console.error(`Por segurança, este bootstrap só pode atuar em repositórios de ${DEFAULT_OWNER}.`);
   process.exit(2);
 }
