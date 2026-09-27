@@ -1,0 +1,29 @@
+version: 1
+project: servizi-project-template
+owner: ServiziBrasil
+last_reviewed: 2026-09-27
+
+tools:
+  - name: GitHub
+    category: source-control-ci
+    purpose: Código, Pull Requests, versionamento e CI/CD
+    environment: all
+    account_owner: dev.sbtechnology@gmail.com
+    billing_plan: registrar_no_projeto
+    monthly_cost: registrar_no_projeto
+    admin_url: https://github.com/ServiziDevBrasil
+    secrets_location: GitHub Secrets / GitHub Environments
+    data_classification: internal
+    exit_plan: Git clone completo e exportação do histórico
+
+  - name: Supabase
+    category: database-backend
+    purpose: PostgreSQL, Auth e Storage quando aplicável
+    environment: optional
+    account_owner: registrar_no_projeto
+    billing_plan: registrar_no_projeto
+    monthly_cost: registrar_no_projeto
+    admin_url: registrar_no_projeto
+    secrets_location: Secret manager do ambiente
+    data_classification: definir_no_projeto
+    exit_plan: Backup PostgreSQL + migrations versionadas

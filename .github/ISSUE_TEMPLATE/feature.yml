@@ -1,0 +1,19 @@
+name: Feature
+description: Propor funcionalidade ou melhoria
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: Qual problema precisa ser resolvido?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      description: Como saberemos que está concluído?
+    validations:
+      required: true

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "name": "servizi-project-template",
+    "owner": "ServiziBrasil",
+    "criticality": "standard",
+    "dataClassification": "internal",
+    "template": true
+  },
+  "environments": {"local": true, "test": true, "staging": true, "production": true},
+  "qualityGates": {
+    "pullRequest": ["typecheck", "lint", "unit", "build"],
+    "staging": ["integration", "e2e", "smoke"],
+    "production": ["smoke", "monitoring"]
+  }
+}
