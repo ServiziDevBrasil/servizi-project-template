@@ -22,3 +22,12 @@ A `main` representa código apto para produção. Alterações entram por Pull R
 - Staging: integração + E2E + smoke.
 - Produção: smoke + monitoramento.
 - Banco: migrations versionadas; nada de alteração estrutural manual diretamente em produção.
+
+
+## Bootstrap automático
+
+Depois de criar um projeto com **Use this template**, aplique as configurações administrativas do GitHub com o **Bootstrap Servizi**.
+
+O bootstrap configura ruleset da `main`, `quality-gate`, auto-merge, limpeza de branches e os environments `staging` e `production`.
+
+Veja `docs/BOOTSTRAP.md`.

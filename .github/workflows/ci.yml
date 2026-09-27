@@ -26,6 +26,9 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Project config
         run: npm run project:check
+
+      - name: Bootstrap dry-run
+        run: node scripts/bootstrap-servizi.mjs --repo ServiziDevBrasil/bootstrap-validation --dry-run
       - name: Typecheck
         run: npm run typecheck
       - name: Lint

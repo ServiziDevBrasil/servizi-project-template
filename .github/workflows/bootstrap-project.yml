@@ -1,0 +1,49 @@
+name: Bootstrap Servizi Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "Repositório alvo no formato ServiziDevBrasil/nome"
+        required: true
+        type: string
+      mode:
+        description: "Primeiro use dry-run; depois apply"
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - apply
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    if: github.repository == 'ServiziDevBrasil/servizi-project-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout template
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Bootstrap target repository
+        env:
+          TARGET_REPOSITORY: ${{ inputs.repository }}
+          BOOTSTRAP_MODE: ${{ inputs.mode }}
+          SERVIZI_BOOTSTRAP_TOKEN: ${{ secrets.SERVIZI_BOOTSTRAP_TOKEN }}
+          SERVIZI_ALLOWED_OWNER: ServiziDevBrasil
+        shell: bash
+        run: |
+          if [ "$BOOTSTRAP_MODE" = "apply" ]; then
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --apply
+          else
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --dry-run
+          fi
