@@ -447,7 +447,16 @@ async function initializeProfile(targetRepository) {
     sha: markerBlob.sha
   });
 
+  const baseTree = await api(
+    `/repos/${owner}/${repo}/git/trees/${baseCommit.tree.sha}?recursive=1`
+  );
+  const basePaths = new Set(
+    (baseTree.tree || []).map((item) => item.path)
+  );
+
   for (const oldPath of ['src/health.ts', 'src/index.ts']) {
+    if (!basePaths.has(oldPath)) continue;
+
     treeEntries.push({
       path: oldPath,
       mode: '100644',
