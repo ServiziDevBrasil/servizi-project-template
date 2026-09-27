@@ -16,6 +16,14 @@ on:
           - web-fullstack
           - web-frontend
           - none
+      theme:
+        description: "Tema visual inicial"
+        required: true
+        default: base
+        type: choice
+        options:
+          - base
+          - operations-modern
       mode:
         description: "Primeiro use dry-run; depois apply"
         required: true
@@ -47,13 +55,14 @@ jobs:
         env:
           TARGET_REPOSITORY: ${{ inputs.repository }}
           PROJECT_PROFILE: ${{ inputs.profile }}
+          PROJECT_THEME: ${{ inputs.theme }}
           BOOTSTRAP_MODE: ${{ inputs.mode }}
           SERVIZI_BOOTSTRAP_TOKEN: ${{ secrets.SERVIZI_BOOTSTRAP_TOKEN }}
           SERVIZI_ALLOWED_OWNER: ServiziDevBrasil
         shell: bash
         run: |
           if [ "$BOOTSTRAP_MODE" = "apply" ]; then
-            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --apply
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --theme "$PROJECT_THEME" --apply
           else
-            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --dry-run
+            node scripts/bootstrap-servizi.mjs --repo "$TARGET_REPOSITORY" --profile "$PROJECT_PROFILE" --theme "$PROJECT_THEME" --dry-run
           fi

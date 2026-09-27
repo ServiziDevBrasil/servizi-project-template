@@ -9,6 +9,15 @@ O Bootstrap pode inicializar dois perfis próprios da Servizi:
 - **web-fullstack** — Next.js + TypeScript + Supabase, indicado para aplicações com frontend, backend, autenticação, APIs e persistência.
 - **web-frontend** — React + Vite + TypeScript, indicado para dashboards, PWAs e aplicações que consomem APIs.
 
+## Temas visuais
+
+Além do perfil técnico, o Bootstrap permite escolher uma camada visual:
+
+- **base** — visual mínimo para começar do zero.
+- **operations-modern** — dashboard operacional moderno com sidebar, header, KPIs, gráfico, tabela de atividade e modo claro/escuro. Inspirado em padrões do Kiranism, adaptado à identidade Servizi.
+
+O primeiro tema é compatível com **web-fullstack**.
+
 ## Fluxo padrão
 
 `LLM -> branch própria -> push -> PR -> quality-gate -> auto-merge -> main`
@@ -28,8 +37,9 @@ Depois de criar um projeto com **Use this template**, execute **Bootstrap Serviz
 
 1. o repositório alvo;
 2. o perfil `web-fullstack` ou `web-frontend`;
-3. primeiro `dry-run`;
-4. depois `apply`.
+3. o tema `base` ou `operations-modern`;
+4. primeiro `dry-run`;
+5. depois `apply`.
 
 O bootstrap configura ruleset da `main`, `quality-gate`, auto-merge, limpeza de branches, `staging`, `production` e cria um PR para aplicar o perfil escolhido.
 
